@@ -1,0 +1,43 @@
+﻿@model IEnumerable<RecipeStore.Models.RecipeModel>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <h2>Latest Recipes</h2>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecipeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+                <td>@Html.ActionLink("View", "Details","RecipeModels", new { id = item.Id },null) </td>
+            </tr>
+        }
+
+    </table>
+
+</div>

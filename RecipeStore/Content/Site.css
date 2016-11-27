@@ -1,0 +1,56 @@
+﻿/* Heading*/
+.btn-dark {
+    background-color:darkgrey;
+    color:white;
+}
+/*
+.header-text, .header-text a,{
+    color: white;
+    text-align: center;
+    stroke: black;
+}
+    */
+.weetbix-header a {
+    color:white;
+    font-weight:800;
+    text-shadow:2px 2px black;
+}
+.weetbix-header {
+    color:white;
+    width:100%;
+    height:260px;
+    text-align:center;
+    background-position-y: 310%;
+    background-position-x: 50%;
+    background-image: url("../Content/weetbix-header.png");
+}
+.weetbix-header a:hover {
+    text-decoration: none;
+    color:white;
+}
+
+/* Main */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}

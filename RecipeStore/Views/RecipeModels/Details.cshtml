@@ -1,0 +1,33 @@
+﻿@model RecipeStore.Models.RecipeModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="page-header">
+    <h1>@Html.DisplayFor(model => model.RecipeName) <small>@Html.DisplayFor(model=>model.Category.CategoryName)</small></h1>
+</div>
+
+<div class="col-md-6">
+    <p><strong>@Html.DisplayNameFor(model => model.PreparationInstructions)</strong> <br /></p>
+    @Html.DisplayFor(model => model.PreparationInstructions)
+</div>
+
+<div class="col-md-6">
+    <div>
+        <p><strong>Listed by:</strong> @Html.DisplayFor(model => model.CreatedBy.UserName)</p>
+
+        <p><strong>@Html.DisplayNameFor(model => model.Description)</strong> <br /> @Html.DisplayFor(model => model.Description)</p>
+
+        <p><strong>@Html.DisplayNameFor(model => model.DateAdded)</strong> <br />@Html.DisplayFor(model => model.DateAdded)</p>
+
+        <p><strong>@Html.DisplayNameFor(model => model.Ingredients)</strong></p>
+        <ul>
+            <li>@Html.DisplayFor(model => model.Ingredients)</li>
+        </ul>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
