@@ -9,27 +9,6 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<!--
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.RecipeName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateAdded)
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </th>
-        <th></th>
-    </tr> -->
 <div class="row">
     @foreach (var item in Model)
     {
@@ -37,34 +16,26 @@
         <div class="thumbnail col-sm-6 col-md-4">
             <img src="" alt="">
             <div class="caption">
-                <h4><strong>@Html.DisplayFor(modelItem => item.RecipeName)</strong> <small>@Html.DisplayFor(modelItem=>item.Category.CategoryName)</small></h4>
-                <p> @Html.DisplayFor(modelItem => item.Description) </p>
+                <h4><strong>@Html.DisplayFor(modelItem => item.RecipeName)</strong> <small>@Html.DisplayFor(modelItem => item.Category.CategoryName)</small></h4>
+                <p> 
+                @{
+                    //Below checks for the length of the description
+                    //if it is over a certain length then it removes the last 3 elements and appends '...'
+                    //ToString declarations are just to enforce string behaviour and remove oddities
+
+                    if(item.Description.ToString().Length > 51)
+                    {
+                        string appendDots = "...";
+                        string newValue = item.Description.ToString();
+                        newValue = newValue.Substring(0, 51);
+                        newValue += appendDots.ToString();
+                        item.Description = newValue.ToString();
+                    }
+                }
+
+                @Html.DisplayFor(modelItem => item.Description) </p>
                 <p>@Html.ActionLink("View", "Details", new { id = item.Id })</p>
             </div>
         </div>
     }
 </div>
-    <!--
-        <tr>
-            <td>
-                Html.DisplayFor(modelItem => item.RecipeName)
-            </td>
-            <td>
-                Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>
-            <td>
-                Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                Html.DisplayFor(modelItem => item.CreatedBy.UserName)
-            </td>
-            <td>
-                Html.ActionLink("View", "Details", new { id = item.Id })
-            </td>
-        </tr>
-        }
-
-</table> -->

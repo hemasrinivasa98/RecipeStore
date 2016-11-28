@@ -74,3 +74,6 @@ C:\Users\Conor\Documents\GitHub\RecipeStore\RecipeStore\obj\Debug\RecipeStore.Mi
 C:\Users\Conor\Documents\GitHub\RecipeStore\RecipeStore\obj\Debug\RecipeStore.Migrations.AddedRecipeCategoryModel.resources
 C:\Users\Conor\Documents\GitHub\RecipeStore\RecipeStore\obj\Debug\RecipeStore.Migrations.Added_extra_recipe_details.resources
 C:\Users\Conor\Documents\GitHub\RecipeStore\RecipeStore\obj\Debug\RecipeStore.Migrations.Categories_working.resources
+C:\Users\Conor\Documents\GitHub\RecipeStore\RecipeStore\bin\HtmlAgilityPack.dll
+C:\Users\Conor\Documents\GitHub\RecipeStore\RecipeStore\bin\HtmlAgilityPack.pdb
+C:\Users\Conor\Documents\GitHub\RecipeStore\RecipeStore\bin\HtmlAgilityPack.xml

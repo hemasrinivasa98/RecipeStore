@@ -51,6 +51,7 @@ namespace RecipeStore.Models
 
     public class RecipeModelCategory
     {
+        [Display(Name = "Categories")]
         public List<RecipeCategory> CategoryItems { get; set; }
         public RecipeModel RecipeItem { get; set; }
     }
