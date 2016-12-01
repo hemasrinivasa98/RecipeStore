@@ -192,7 +192,7 @@ namespace RecipeStore.Controllers
         //Scrapes data from provided URL and gets the Ingredients, Servings and time taken
         //Need to filter based on which site as the sites are not consistent
         
-        public static async Task FindData(string data)
+        public static async Task<RecipeModel> FindData(string data)
         {
 
             //Retrieve HTML doc from Anabel recipe site
@@ -206,7 +206,7 @@ namespace RecipeStore.Controllers
             //Using xpath and get by id to get specific data. Will need to change them if the website ever changes structure. 
             //Need to implement try/catch
             var recipeName = resultat.DocumentNode.SelectSingleNode("//*[@id='middle_col']/div[1]/h1").InnerText;
-            var ingredients = resultat.GetElementbyId("ingred");
+            var ingredients = resultat.GetElementbyId("ingred").InnerText;
             var method = resultat.GetElementbyId("method").InnerText;
             var recipeData = resultat.DocumentNode.SelectSingleNode("//*[@id='middle_col']/div[1]/dl");
             var servings = resultat.DocumentNode.SelectSingleNode("//*[@id='middle_col']/div[1]/dl/dd[3]").InnerText;
@@ -217,12 +217,42 @@ namespace RecipeStore.Controllers
             System.Diagnostics.Debug.WriteLine("Servings: " + servings);
             System.Diagnostics.Debug.WriteLine("Time: " + time);
 
+            //Modelling data to recipe model to pass back
+            RecipeModel recipe = new RecipeModel();
+            recipe.RecipeName = recipeName;
+            recipe.Ingredients = ingredients;
+            recipe.PreparationInstructions = method;
+            recipe.Servings = servings;
+            recipe.Time = time;
+
+            return recipe;
+
         }
 
-        public ActionResult CreateFromURL(string url)
+        [HttpPost]
+        public async Task<ActionResult> CreateFromURL(RecipeFromURL rec)
         {
 
-            return View("Index");
+            //recipe data
+            RecipeModel newRecipe = new RecipeModel();
+            newRecipe = await FindData(rec.URL);
+            newRecipe.Description = rec.Description;
+
+            //date
+            newRecipe.DateAdded = DateTime.Now;
+
+            //User conversion
+            string id = User.Identity.GetUserId();
+            var user = db.Users.Find(id);
+            newRecipe.CreatedBy = user;
+
+            //Category
+            newRecipe.Category = db.RecipeCategories.Find(rec.Category);
+
+            db.RecipeModels.Add(newRecipe);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "RecipeModels");
         }
 
         //Perform async data test

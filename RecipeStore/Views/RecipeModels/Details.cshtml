@@ -13,7 +13,7 @@
 
 <div class="col-md-6">
     <p><strong>@Html.DisplayNameFor(model => model.PreparationInstructions)</strong> <br /></p>
-    @Html.DisplayFor(model => model.PreparationInstructions)
+    <pre>@Html.DisplayFor(model => model.PreparationInstructions).</pre>
 </div>
 
 <div class="col-md-6">
@@ -28,10 +28,10 @@
 
         <p><strong>@Html.DisplayNameFor(model => model.DateAdded)</strong> <br />@Html.DisplayFor(model => model.DateAdded)</p>
 
-        <p>
-            <strong>@Html.DisplayNameFor(model => model.Ingredients)</strong> <br />
+        <p><strong>@Html.DisplayNameFor(model => model.Ingredients)</strong></p>
+        <pre>
             @Html.DisplayFor(model => model.Ingredients)
-        </p>
+        </pre>
         
     </div>
 </div>

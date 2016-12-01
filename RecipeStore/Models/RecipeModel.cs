@@ -55,4 +55,11 @@ namespace RecipeStore.Models
         public List<RecipeCategory> CategoryItems { get; set; }
         public RecipeModel RecipeItem { get; set; }
     }
+
+    public class RecipeFromURL
+    {
+        public string URL { get; set; }
+        public string Description { get; set; }
+        public string Category { get; set; }
+    }
 }
