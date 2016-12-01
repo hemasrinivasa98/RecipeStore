@@ -9,6 +9,37 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#createFromURL">Recipe from URL</button>
+
+<!-- Modal -->
+<div id="createFromURL" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>@{
+                    var categories = RecipeStore.Controllers.RecipeCategoriesController.GetDropDownItems();
+                    var newItem = new RecipeStore.Models.RecipeModelCategory();
+                    @Html.TextBox("URL");
+                    @Html.Display("Category");
+                    @Html.DropDownList("Select a category",RecipeStore.Controllers.RecipeCategoriesController.GetDropDownItems());
+                    }
+                 </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Html.ActionLink("Create Recipe from URL", "CreateFromURL")</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 <div class="row">
     @foreach (var item in Model)
     {

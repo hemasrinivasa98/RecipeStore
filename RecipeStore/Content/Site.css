@@ -3,13 +3,6 @@
     background-color:darkgrey;
     color:white;
 }
-/*
-.header-text, .header-text a,{
-    color: white;
-    text-align: center;
-    stroke: black;
-}
-    */
 .weetbix-header a {
     color:white;
     font-weight:800;
@@ -53,4 +46,12 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+/* Formatting */
+.white-text, .white-text a, .white-text a:visited {
+    color: white !important;
+ }
+.white-text > a {
+    color: white;
 }
