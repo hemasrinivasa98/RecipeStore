@@ -20,3 +20,5 @@ Very much a work in progress.
 ![Adding Recipes from external URL](https://github.com/conordot/RecipeStore/blob/master/Sample%20screens/latest/recipes-adding-from-url.JPG)
 
 ![New Recipe Page](https://github.com/conordot/RecipeStore/blob/master/Sample%20screens/latest/new-recipe.JPG)
+
+NOTE/Disclsosure: The recipes featured on this page and site do not belong to me and are property of Annabel Langbein and Nadia Lim.
