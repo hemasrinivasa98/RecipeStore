@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace RecipeStore.Models
 {
@@ -26,6 +27,7 @@ namespace RecipeStore.Models
         public ApplicationUser CreatedBy { get; set; }
 
         //Recipe specifics
+        [AllowHtml]
         public string Ingredients { get; set; }
 
         [Display(Name = "Number of servings")]
@@ -34,6 +36,7 @@ namespace RecipeStore.Models
         [Display(Name = "Cooking Time")]
         public string Time { get; set; }
 
+        [AllowHtml]
         [Display(Name = "Instructions")]
         public string PreparationInstructions { get; set; }
     }
@@ -59,6 +62,7 @@ namespace RecipeStore.Models
     public class RecipeFromURL
     {
         public string URL { get; set; }
+        public string SiteName { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }
     }

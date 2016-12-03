@@ -24,10 +24,9 @@ namespace RecipeStore.Controllers
 
         // Retrieve all records when navigating to the index page, perhaps not ideal but temp solution
         [Authorize]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             ViewBag.SyncOrAsync = "Asynchronous";
-            await LoadTestPage(); //Test page that loads recipe from website, currently only contains Anabel Langbein
             var recipes = db.RecipeModels.Include(x => x.CreatedBy).Include(y => y.Category); //Include the creator and category details as well
             return View(recipes);
         }
@@ -92,7 +91,7 @@ namespace RecipeStore.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             RecipeModelCategory rec = new RecipeModelCategory();
-            rec.RecipeItem = db.RecipeModels.Find(id);
+            rec.RecipeItem = db.RecipeModels.Include(x=>x.Category).FirstOrDefault(y=>y.Id == id);
 
             if (rec.RecipeItem == null)
             {
@@ -192,7 +191,7 @@ namespace RecipeStore.Controllers
         //Scrapes data from provided URL and gets the Ingredients, Servings and time taken
         //Need to filter based on which site as the sites are not consistent
         
-        public static async Task<RecipeModel> FindData(string data)
+        public static async Task<RecipeModel> FindAnabelData(string data)
         {
 
             //Retrieve HTML doc from Anabel recipe site
@@ -206,11 +205,48 @@ namespace RecipeStore.Controllers
             //Using xpath and get by id to get specific data. Will need to change them if the website ever changes structure. 
             //Need to implement try/catch
             var recipeName = resultat.DocumentNode.SelectSingleNode("//*[@id='middle_col']/div[1]/h1").InnerText;
-            var ingredients = resultat.GetElementbyId("ingred").InnerText;
-            var method = resultat.GetElementbyId("method").InnerText;
+            var ingredients = resultat.DocumentNode.SelectSingleNode("//*[@id='ingred']").InnerHtml;
+            var method = resultat.DocumentNode.SelectSingleNode("//*[@id='method']").InnerHtml;
             var recipeData = resultat.DocumentNode.SelectSingleNode("//*[@id='middle_col']/div[1]/dl");
             var servings = resultat.DocumentNode.SelectSingleNode("//*[@id='middle_col']/div[1]/dl/dd[3]").InnerText;
             var time = resultat.DocumentNode.SelectSingleNode("//*[@id='middle_col']/div[1]/dl/dd[2]").InnerText;
+
+            //Debug to check if its working
+            System.Diagnostics.Debug.WriteLine("Recipe Name: " + recipeName);
+            System.Diagnostics.Debug.WriteLine("Servings: " + servings);
+            System.Diagnostics.Debug.WriteLine("Time: " + time);
+
+            //Modelling data to recipe model to pass back
+            RecipeModel recipe = new RecipeModel();
+            recipe.RecipeName = recipeName;
+            recipe.Ingredients = ingredients;
+            recipe.PreparationInstructions = method;
+            recipe.Servings = servings;
+            recipe.Time = time;
+
+            return recipe;
+
+        }
+
+        public static async Task<RecipeModel> FindNadiaData(string data)
+        {
+
+            //Retrieve HTML doc from Anabel recipe site
+            HttpClient http = new HttpClient();
+            var response = await http.GetByteArrayAsync(data);
+            String source = Encoding.GetEncoding("utf-8").GetString(response, 0, response.Length - 1);
+            source = WebUtility.HtmlDecode(source);
+            HtmlDocument resultat = new HtmlDocument();
+            resultat.LoadHtml(source);
+
+            //Using xpath and get by id to get specific data. Will need to change them if the website ever changes structure. 
+            //Need to implement try/catch
+            var recipeName = resultat.DocumentNode.SelectSingleNode("//*[@id='recipe-info-box']/h1").InnerText;
+            var ingredients = resultat.DocumentNode.SelectSingleNode("//*[@id='ingredients']/div[2]/ul").InnerHtml;
+            var method = resultat.DocumentNode.SelectSingleNode("//*[@id='method']/div[2]/ol").InnerHtml;
+            var recipeData = resultat.DocumentNode.SelectSingleNode("//*[@id='middle_col']/div[1]/dl");
+            var servings = resultat.DocumentNode.SelectSingleNode("//*[@id='recipe-info-box']/div[2]/div[1]/span[2]").InnerText;
+            var time = resultat.DocumentNode.SelectSingleNode("//*[@id='recipe-info-box']/div[2]/div[2]/span[2]").InnerText;
 
             //Debug to check if its working
             System.Diagnostics.Debug.WriteLine("Recipe Name: " + recipeName);
@@ -235,7 +271,15 @@ namespace RecipeStore.Controllers
 
             //recipe data
             RecipeModel newRecipe = new RecipeModel();
-            newRecipe = await FindData(rec.URL);
+            
+            if(rec.SiteName == "Annabel")
+            {
+                newRecipe = await FindAnabelData(rec.URL);
+            } else if(rec.SiteName == "Nadia")
+            {
+                newRecipe = await FindNadiaData(rec.URL);
+            }
+
             newRecipe.Description = rec.Description;
 
             //date
@@ -247,7 +291,7 @@ namespace RecipeStore.Controllers
             newRecipe.CreatedBy = user;
 
             //Category
-            newRecipe.Category = db.RecipeCategories.Find(rec.Category);
+            newRecipe.Category = db.RecipeCategories.Find(int.Parse(rec.Category));
 
             db.RecipeModels.Add(newRecipe);
             db.SaveChanges();
@@ -261,7 +305,7 @@ namespace RecipeStore.Controllers
         //Only anabel langbein recipes will work at the moment
         public static async Task LoadTestPage()
         {
-            await FindData("http://www.annabel-langbein.com/recipes/huntsmans-chicken-pie/3382/");
+            await FindAnabelData("http://www.annabel-langbein.com/recipes/huntsmans-chicken-pie/3382/");
         }
     }
 }

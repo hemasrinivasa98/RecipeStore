@@ -53,3 +53,6 @@ C:\Users\Conor\Documents\GitHub\RecipeStore\RecipeStore.Tests\bin\Debug\Microsof
 C:\Users\Conor\Documents\GitHub\RecipeStore\RecipeStore.Tests\obj\Debug\RecipeStore.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Conor\Documents\GitHub\RecipeStore\RecipeStore.Tests\obj\Debug\RecipeStore.Tests.dll
 C:\Users\Conor\Documents\GitHub\RecipeStore\RecipeStore.Tests\obj\Debug\RecipeStore.Tests.pdb
+C:\Users\Conor\Documents\GitHub\RecipeStore\RecipeStore.Tests\bin\Debug\HtmlAgilityPack.dll
+C:\Users\Conor\Documents\GitHub\RecipeStore\RecipeStore.Tests\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\Conor\Documents\GitHub\RecipeStore\RecipeStore.Tests\bin\Debug\HtmlAgilityPack.xml
