@@ -1,15 +1,15 @@
 # RecipeStore
 Web application to hold cooking recipes. Built using ASP.NET MVC with Entity Framework, with HTMLAgilityPack for web scraping. 
 
-Very much a work in progress.
+Very much a work in progress. Remake in progress/planned.
 <hr>
-##Planned:
+## Planned:
 
 1. Ability to scrape recipes from popular NZ chefs (In-progress, Nadia Lim and Annabel Langbein are functional)
 2. Filtering options on recipe page to search for categories, serving size, prep time and more.
 3. Tidy up UI for better experience on Mobile.
 
-##Images:
+## Images:
 
 ![Main Page](https://github.com/conordot/RecipeStore/blob/master/Sample%20screens/latest/home.JPG)
 
